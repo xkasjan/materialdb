@@ -78,11 +78,10 @@ include_once(dirname(__FILE__) . '/query/chartsquery.php');
     <button type="button" id="maszynyb" class="btn">Maszyny</button>
   </div>
   
-  <form name="frmUser" method="POST" action="./modals/deletemodal-machines.php">
   <div class="d-flex flex-row-reverse bd-highlight" style="width:100%;">
     <div class="btn-group" role="group" aria-label="Basic example">
     <button type="button" id="" class="btn"><i class='fas fa-edit' style="padding-right: 6px; color: #FFDC00;"></i>Edytuj</button>
-    <button type="submit" id="" class="btn"><i class="fas fa-trash-alt" style="margin-left: 50px; padding-right: 6px; color: #FF4136;"></i>Usuń</button>
+    <a id="usun" class="btn" onClick="setUpdateAction()"><i class="fas fa-trash-alt" style="margin-left: 50px; padding-right: 6px; color: #FF4136;"></i>Usuń</a>
     <button type="button" id="dodajb" class="btn" onClick="addModal()" style="margin-left: 50px;"><i class="fas fa-plus" style="padding-right: 5px; color: #2ECC40;"></i>Dodaj</button>
 
   </div>
@@ -99,17 +98,15 @@ include_once(dirname(__FILE__) . '/query/chartsquery.php');
 
 
 
-  </form>
-
   <script>
       function addModal()
       {
         window.location.href = "./modals/addmodal.php";
       }
  
-      function setUpdateAction() {
-        document.frmUser.action = "./modals/deletemodal-machines.php";
-        document.frmUser.submit();
+      function setUpdateAction(){
+        document.getElementById("usun").action = "./modals/deletemodal-machines.php";
+        document.getElementById("usun").submit();
         
       }
 

@@ -7,7 +7,7 @@ $msn=$_GET['sn'];
 $men=$_GET['en'];
 $mown=$_GET['own'];
 */
-var_dump($_GET['machines'])
+
 ?>
 
 <!DOCTYPE html>
@@ -46,12 +46,12 @@ var_dump($_GET['machines'])
 
           <?php
           
-          if(isset($_GET['machines'])) {
-              $machines = $_GET['machines'];
+          if(isset($_REQUEST['machines'])) {
+              $machines = $_REQUEST['machines'];
 
           }
           
-          print_r($machines);
+         
             
         
         
