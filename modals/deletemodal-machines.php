@@ -50,6 +50,9 @@ $mown=$_GET['own'];
               $machines = $_REQUEST['machines'];
 
           }
+          else{
+            echo "brak";
+          }
           
          
             

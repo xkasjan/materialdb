@@ -24,7 +24,7 @@ if ($result = $conn -> query($sql)) {
     echo "<tbody>";
         while($row = mysqli_fetch_array($result)){
             echo "<tr>";
-                echo "<td><input type='checkbox' name='machines[]' value='1'/></td>";
+                echo "<td><input type='checkbox' data-machine-id='".$row['mid']."'"."/></td>";
                 echo "<td>" . $row['mid'] . "</td>";
                 echo "<td>" . $row['mname'] . "</td>";
                 echo "<td>" . $row['snr'] . "</td>";
