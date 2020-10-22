@@ -98,31 +98,8 @@ include_once(dirname(__FILE__) . '/query/chartsquery.php');
 
 
 
-  <script>
-      function addModal()
-      {
-        window.location.href = "./modals/addmodal.php";
-      }
- 
-      function setUpdateAction(){
-        let $table = document.querySelector('table.table');
-        let $selectedCheckboxes = $table.querySelectorAll('input[type="checkbox"]:checked');
-
-        let $checkboxCount = $selectedCheckboxes.length;
-        machineArray = [];
-        
-
-        for (var i = 0; i < $checkboxCount; i++) {
-          machineArray[i] = $selectedCheckboxes[i].getAttribute('data-machine-id');
-          console.log(machineArray[i]);
-        }
-        
-        
-      }
-
-      
-    </script>
-
+  
+    <script src="./scripts/modalScripts.js"></script>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

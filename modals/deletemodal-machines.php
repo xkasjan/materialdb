@@ -21,7 +21,16 @@ $mown=$_GET['own'];
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
+<script src="../scripts/modalScripts.js"></script>
+<script>
+var machineArray = [];
+var machineCount = 0;
 
+machineArray = localStorage.getItem("machineID");
+machineCount = localStorage.getItem("machineCount");
+
+//console.log(machineCount);
+</script>
 
 
 
@@ -45,20 +54,23 @@ $mown=$_GET['own'];
           
 
           <?php
-          
-          if(isset($_REQUEST['machines'])) {
-              $machines = $_REQUEST['machines'];
 
-          }
-          else{
-            echo "brak";
-          }
+            $machineTest = $_GET['test'];
+            $machineID = explode(",",$machineTest);
+            //$machineID = filter_var($machineID, FILTER_SANITIZE_NUMBER_INT);
+            print_r ($machineID);        
+            $machineCount = count($machineID);
+            echo $machineCount;
+            //echo $machineTest;
           
-         
-            
-        
+            if($machineCount > 0)
+            {
+              
+            }
+
         
           ?>
+
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-danger" onclick="">Close</button>
