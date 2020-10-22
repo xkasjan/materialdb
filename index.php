@@ -105,8 +105,18 @@ include_once(dirname(__FILE__) . '/query/chartsquery.php');
       }
  
       function setUpdateAction(){
-        document.getElementById("usun").action = "./modals/deletemodal-machines.php";
-        document.getElementById("usun").submit();
+        let $table = document.querySelector('table.table');
+        let $selectedCheckboxes = $table.querySelectorAll('input[type="checkbox"]:checked');
+
+        let $checkboxCount = $selectedCheckboxes.length;
+        machineArray = [];
+        
+
+        for (var i = 0; i < $checkboxCount; i++) {
+          machineArray[i] = $selectedCheckboxes[i].getAttribute('data-machine-id');
+          console.log(machineArray[i]);
+        }
+        
         
       }
 
