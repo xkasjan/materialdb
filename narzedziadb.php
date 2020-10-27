@@ -11,6 +11,7 @@ if ($result = $conn -> query($sql)) {
   echo "<table class='table table-striped'>";
     echo "<thead class='table-stripped' style='background-color: #343a40; color: #FFFAFA;'>";
       echo "<tr>";
+        echo "<th scope='col'></th>";
         echo "<th scope='col'>Lp.</th>";
         echo "<th scope='col'>Model</th>";
         echo "<th scope='col'>Producent</th>";
@@ -22,6 +23,7 @@ if ($result = $conn -> query($sql)) {
     echo "<tbody>";
         while($row = mysqli_fetch_array($result)){
             echo "<tr>";
+            echo "<td><input type='checkbox' data-tools-id='".$row['tid']."'"."/></td>";
                 echo "<td>" . $row['tid'] . "</td>";
                 echo "<td>" . $row['tname'] . "</td>";
                 echo "<td>" . $row['tproducer'] . "</td>";

@@ -11,15 +11,28 @@
         let $checkboxCount = 0;
         $checkboxCount = $selectedCheckboxes.length;
         
-        var machineArray = [];
+        var array = [];
 
-        if($checkboxCount > 0){
-          for (var i = 0; i < $checkboxCount; i++) {
-            machineArray[i] = $selectedCheckboxes[i].getAttribute('data-machine-id');
-            console.log(machineArray[i]);
+        //let element = document.querySelector("#usun");
+
+        
+          
+          if(currentTab == "narzedzia"){
+            if($checkboxCount > 0){
+              for (var i = 0; i < $checkboxCount; i++) {
+                array[i] = $selectedCheckboxes[i].getAttribute('data-tools-id');
+                console.log(array[i]);
+              }
+              localStorage.setItem("array", array);
+              localStorage.setItem("checkboxCount", $checkboxCount);
+    
+            window.location.href = "./modals/deletemodal-tools.php?test=" + array;
           }
-          localStorage.setItem("machineID", machineArray);
-          localStorage.setItem("machineCount", $checkboxCount);
-          window.location.href = "./modals/deletemodal-machines.php?test=" + machineArray;
+          else{
+            window.location.href = "/error.php";
+          }
+
+         
+          
         }
       }

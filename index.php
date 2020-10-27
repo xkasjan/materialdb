@@ -3,7 +3,7 @@
 //include_once('./query/mquery.php');
 include_once(dirname(__FILE__) . '/config/dbconnect.php');
 include_once(dirname(__FILE__) . '/query/mquery.php');
-include_once(dirname(__FILE__) . '/query/chartsquery.php');
+//include_once(dirname(__FILE__) . '/query/chartsquery.php');
 
 ?>
 <!doctype html>
@@ -26,7 +26,7 @@ include_once(dirname(__FILE__) . '/query/chartsquery.php');
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     
     
-    <script src="./scripts/indexscript.js"></script>
+    
 
     <!-- Embedded Style -->
     <style>
@@ -100,6 +100,7 @@ include_once(dirname(__FILE__) . '/query/chartsquery.php');
 
   
     <script src="./scripts/modalScripts.js"></script>
+    <script src="./scripts/indexscript.js"></script>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

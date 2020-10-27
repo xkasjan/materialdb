@@ -40,7 +40,7 @@ include_once('../config/dbconnect.php');
 
 
 
-    <script src="../scripts/addmodalscript.js"></script>
+    
 
     <div>
   <ul class="nav nav-tabs nav-justified">

@@ -1,3 +1,4 @@
+var currentTab;
 
 $(document).ready(function() {
 
@@ -10,7 +11,8 @@ $(document).ready(function() {
         url: "machinesdb.php",             
         dataType: "html",               
         success: function(response){                    
-            $("#db-form").html(response); 
+            $("#db-form").html(response);
+            currentTab = "maszyny";
         }
     });
     });
@@ -28,6 +30,7 @@ $(document).ready(function() {
             dataType: "html",               
             success: function(response){                    
                 $("#db-form").html(response); 
+                currentTab = "rusztowania";
             }
         });
     });
@@ -44,7 +47,8 @@ $(document).ready(function() {
         url: "narzedziadb.php",             
         dataType: "html",               
         success: function(response){                    
-            $("#db-form").html(response); 
+            $("#db-form").html(response);
+            currentTab = "narzedzia";
         }
     });
     });
@@ -59,7 +63,7 @@ $(document).ready(function() {
             url: "./modals/addmodal.php",             
             dataType: "html",               
             success: function(response){                    
-                $("body").html(response); 
+                $("body").html(response);
             }
         });
         });

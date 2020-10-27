@@ -25,8 +25,8 @@ $numberCheck = true;
 <body>
 <script src="../scripts/modalScripts.js"></script>
 <script>
-var machineArray = [];
-var machineCount = 0;
+var toolArray = [];
+var toolCount = 0;
 
 machineArray = localStorage.getItem("array");
 machineCount = localStorage.getItem("checkboxCount");
@@ -56,7 +56,11 @@ machineCount = localStorage.getItem("checkboxCount");
           
 
           <?php
-            
+            $toolTest = $_GET['test'];
+            $toolID = explode(",",$toolTest);
+
+            print_r($toolID);
+            /* 
             $machineTest = $_GET['test'];
             $machineID = explode(",",$machineTest);
           
@@ -70,7 +74,7 @@ machineCount = localStorage.getItem("checkboxCount");
               }
             }
             else{
-              //header("Location: ../error.php");
+              header("Location: ../error.php");
             }
             
             if($numberCheck)
@@ -83,9 +87,9 @@ machineCount = localStorage.getItem("checkboxCount");
               $stmt->execute();
               $stmt->close();
         
-            //header("Location: ../index.php");
+            header("Location: ../index.php");
             }
-        
+        */
           ?>
 
         </div>
