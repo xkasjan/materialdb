@@ -12,12 +12,13 @@ include_once(dirname(__FILE__) . '/config/dbconnect.php');
    echo "<table class='table table-striped'>";
      echo "<thead class='table-stripped' style='background-color: #343a40; color: #FFFAFA;'>";
        echo "<tr>";
+         echo "<th scope='col'></th>";
          echo "<th scope='col'>Lp.</th>";
          echo "<th scope='col'>Nazwa</th>";
          echo "<th scope='col'>Symbol</th>";
          echo "<th scope='col'>Magazyn</th>";
          echo "<th scope='col'>Kontrakt</th>";
-         echo "<th scope='col'>czyZepsute</th>";
+         echo "<th scope='col'>Stan</th>";
          echo "<th scope='col'></th>";
        echo "</tr>";
      echo "</thead>";
@@ -25,21 +26,25 @@ include_once(dirname(__FILE__) . '/config/dbconnect.php');
          while($row = mysqli_fetch_array($result)){
            $czyzepsute = $row['rbroken'];
              echo "<tr>";
+                 echo "<td><input type='checkbox' data-table-name='rusztowania' data-product-id='".$row['rid']."'"."/></td>";
                  echo "<td>" . $row['rid'] . "</td>";
                  echo "<td>" . $row['rname'] . "</td>";
                  echo "<td>" . $row['symbol'] . "</td>";
                  echo "<td>" . $row['nazwa'] . "</td>";
                  echo "<td>" . $row['cname'] . "</td>";
                  if($row['rbroken'] == 1){
-                  echo "<td>" . "Zepsute" . "</td>";
+                  echo "<td>" . "Zepsute<a href='#'><i style='color: #50959E;' class='fas fa-images broken'></i></a>" . "</td>";
                  }
                  else{
                   echo "<td>" . "-" . "</td>";
                  }
-                 echo "<td><a  href='./modals/deletemodal.php?did=".$row['rid']."'><span style='color: tomato;'>
-                 <i class='fas fa-trash-alt'></i>
-               </span></a></td>";
-             echo "</tr>";
+                 if($row['rbroken'] == 0){
+                 echo "<td><a href='./modals/broken-product.php?broken-id=".$row['rid']."'><i style='color: #D64550;' class='fas fa-minus-square'></i></a></td>";
+                 }
+                 else{
+                 echo "<td><a href='./modals/broken-product.php?broken-id=".$row['rid']."'><i style='color: #96C0B7;' class='fas fa-check-square'></i></a><a href='./modals/image-product.php?id=".$row['rid']."'><i style='color: #EAD637;' class='fas fa-file-image'></i></a></td>";
+                 }
+                echo "</tr>";
          }
          echo "</tbody>";
        echo "</table>";

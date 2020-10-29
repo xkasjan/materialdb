@@ -56,40 +56,23 @@ machineCount = localStorage.getItem("checkboxCount");
           
 
           <?php
+
             $toolTest = $_GET['test'];
             $toolID = explode(",",$toolTest);
-
-            print_r($toolID);
-            /* 
-            $machineTest = $_GET['test'];
-            $machineID = explode(",",$machineTest);
           
-            if($machineCount > 0)
-            {
-              foreach($machineID as $value)
-              {
-                if(!is_numeric($value))
-                  $numberCheck = false;
-                
-              }
-            }
-            else{
-              header("Location: ../error.php");
-            }
             
-            if($numberCheck)
-            {
-              $deleteID = implode("','", $machineID);
+          
+              $deleteID = implode("','", $toolID);
 
-              $sqlq  =  "DELETE FROM machines WHERE id IN('$deleteID')";
+              $sqlq  =  "DELETE FROM tools WHERE id IN('$deleteID')";
               $stmt = $conn->prepare($sqlq);
               $stmt->bind_param("i", $deleteID);
               $stmt->execute();
               $stmt->close();
         
             header("Location: ../index.php");
-            }
-        */
+            
+        
           ?>
 
         </div>

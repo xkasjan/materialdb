@@ -35,6 +35,13 @@ include_once(dirname(__FILE__) . '/query/mquery.php');
       padding: 0;
       box-sizing: border-box;
     }
+    #db-form td a i{
+      margin-left: 8px;
+    }
+    #db-form td i{
+      margin-left: 6px;
+    }
+
     tr:hover td{  
         background-color: #cccccc;  
     }     

@@ -1,5 +1,14 @@
 <?php
 include_once('../config/dbconnect.php');
+/*
+$mid=$_GET['did'];
+$mname=$_GET['rname'];
+$msn=$_GET['sn'];
+$men=$_GET['en'];
+$mown=$_GET['own'];
+*/
+
+
 ?>
 
 <!DOCTYPE html>
@@ -13,8 +22,7 @@ include_once('../config/dbconnect.php');
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-
-
+<script src="../scripts/modalScripts.js"></script>
 
 
 <div class="container">
@@ -34,13 +42,29 @@ include_once('../config/dbconnect.php');
           <h4 class="modal-title">Czy chcesz usunąć ten produkt?</h4>
         </div>
         <div class="modal-body">
-          <p>Zostanie usunięty produkt {produkt}, {symbol}</p>
+          
+
           <?php
-            $deleteid = $_GET["did"];
-            echo '<p>' . "ID: " . $deleteid . '</p>';
+            $productTest = $_GET['test'];
+            $productID = explode(",",$productTest);
+
+           
+              $deleteID = implode("','", $productID);
+
+              $sqlq  =  "DELETE FROM rusztowania WHERE id IN('$deleteID')";
+              $stmt = $conn->prepare($sqlq);
+              $stmt->bind_param("i", $deleteID);
+              $stmt->execute();
+              $stmt->close();
+        
+            header("Location: ../index.php");
+            
+        
           ?>
+
         </div>
         <div class="modal-footer">
+          <button type="button" class="btn btn-danger" name="">Usuń</button>
           <button type="button" class="btn btn-default" data-dismiss="modal" onclick="redirect()">Close</button>
           <script>
             function redirect(){
