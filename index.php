@@ -87,7 +87,7 @@ include_once(dirname(__FILE__) . '/query/mquery.php');
   
   <div class="d-flex flex-row-reverse bd-highlight" style="width:100%;">
     <div class="btn-group" role="group" aria-label="Basic example">
-    <button type="button" id="" class="btn"><i class='fas fa-edit' style="padding-right: 6px; color: #FFDC00;"></i>Edytuj</button>
+    <a id="edytuj" class="btn" onClick="setEditAction()"><i class='fas fa-edit' style="padding-right: 6px; color: #FFDC00;"></i>Edytuj</a>
     <a id="usun" class="btn" onClick="setUpdateAction()"><i class="fas fa-trash-alt" style="margin-left: 50px; padding-right: 6px; color: #FF4136;"></i>Usuń</a>
     <button type="button" id="dodajb" class="btn" onClick="addModal()" style="margin-left: 50px;"><i class="fas fa-plus" style="padding-right: 5px; color: #2ECC40;"></i>Dodaj</button>
 

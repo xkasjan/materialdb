@@ -2,12 +2,37 @@
       {
         window.location.href = "./modals/addmodal.php";
       }
- 
+
+      function setEditAction(){
+
+        let $t = document.querySelector('table.table');
+        let $sCheckboxes = $t.querySelectorAll('input[type="checkbox"]:checked');
+
+        let $checkCount;
+        $checkCount = $sCheckboxes.length;
+
+        var idsArray = [];
+        
+        // TOOLS edit
+        if($sCheckboxes[0].getAttribute('data-table-name') == "tools"){
+          if($checkCount > 0){
+            for (var x = 0; x < $checkCount; x++) {
+              idsArray[x] = $sCheckboxes[x].getAttribute('data-tools-id');
+            }
+          window.location.href = "./modals/editmodal-tools.php?ids=" + idsArray;
+        }
+        else{
+          window.location.href = "/error.php";
+        }
+      }
+
+
+      } 
+
       function setUpdateAction(){
         let $table = document.querySelector('table.table');
         let $selectedCheckboxes = $table.querySelectorAll('input[type="checkbox"]:checked');
-        //let selectedTable = $selectedCheckboxes[0].getAttribute('data-table-name');
-        //console.log($selectedCheckboxes[0].getAttribute('data-table-name'));
+
         let $checkboxCount;
         $checkboxCount = $selectedCheckboxes.length;
         
