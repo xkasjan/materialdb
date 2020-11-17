@@ -35,39 +35,29 @@ include_once('../config/dbconnect.php');
 <form method="POST" action="">
 
   <div class="form-group">
-    <label for="name">Nazwa</label>
-    <input type="text" class="form-control" id="name" name="tname" aria-describedby="name">
+    <label for="mname">Nazwa</label>
+    <input type="text" class="form-control" id="mname" name="mname" aria-describedby="name">
   </div>
 
   <div class="form-group">
-    <label for="producer">Producent</label>
-    <input type="text" class="form-control" id="producer" name="tproducer">
+    <label for="sn">Numer seryjny</label>
+    <input type="text" class="form-control" id="sn" name="sn">
   </div>
 
   <div class="form-group">
-    <label for="model">Model</label>
-    <input type="text" class="form-control" id="model" name="tmodel">
+    <label for="ewn">Number ewidencyjny</label>
+    <input type="text" class="form-control" id="ewn" name="ewn">
   </div>
 
-  <div class="form-group">
-    <label for="sn">Numer fabryczny</label>
-    <input type="text" class="form-control" id="sn" name="tsn">
-  </div>
-
-  <div class="form-group">
-    <label for="ewn">Numer ewidencyjny</label>
-    <input type="text" class="form-control" id="ewn" name="tewn">
-  </div>
-
-  <label for="owner">Właściciel</label>
-        <select class="custom-select" id="owner" name="towner">
-            <option selected value="zero">Bez zmian</option>
+  <label for="mowner">Właściciel</label>
+        <select class="custom-select" id="mowner" name="mowner">
+            <option selected value="">Bez zmian</option>
             <option value="null">Brak</option>
                 <?php 
-                    $sql = "SELECT id as tid, owner as owner FROM `tools_owner`";
+                    $sql = "SELECT id as tid, name as mname FROM `machines_owner`";
                     if ($result = $conn -> query($sql)) {
                         while($row = mysqli_fetch_array($result))
-                            echo '<option value="'.$row['tid'].'">'.$row['owner'].'</option>';
+                            echo '<option value="'.$row['tid'].'">'.$row['mname'].'</option>';
                             $result -> free_result();
                             }
                 ?>
@@ -104,14 +94,12 @@ if(isset($_POST['submitbutton'])){
       $towner = (int)$towner;
     }
     */
-    $data = array(mysqli_real_escape_string($conn, htmlspecialchars($_POST['tname'])), 
-    mysqli_real_escape_string($conn, htmlspecialchars($_POST['tproducer'])),
-    mysqli_real_escape_string($conn, htmlspecialchars($_POST['tmodel'])),
-    mysqli_real_escape_string($conn, htmlspecialchars($_POST['tsn'])),
-    mysqli_real_escape_string($conn, htmlspecialchars($_POST['tewn'])));
+    $data = array(mysqli_real_escape_string($conn, htmlspecialchars($_POST['mname'])),
+     mysqli_real_escape_string($conn, htmlspecialchars($_POST['sn'])),
+     mysqli_real_escape_string($conn, htmlspecialchars($_POST['ewn'])));
  
 
-    $columns = array('name', 'producer', 'model', 'factory_number', 'ewidence_number');
+    $columns = array('name', 'serial_number', 'ewidence_number');
     $text = "";
     $isArrayEmpty = false;
     $emptyCount = 0;
@@ -128,43 +116,56 @@ if(isset($_POST['submitbutton'])){
     $text = substr($text, 0, -2);
     
 
+    if ($_SERVER['REQUEST_METHOD']== "POST") {
 
-    if(is_numeric($_POST['towner'])){
-      if(is_numeric($_POST['towner']) && $emptyCount == 5){
-        $townerNumber =(int)$_POST['towner'];
-        $text =  'owner_id=' . $townerNumber;
-      }
-      else{
-        $townerNumber =(int)$_POST['towner'];
-        $text = $text . ", owner_id=" . $townerNumber;
-      }
-    }
-    else if($_POST['towner'] == "null" && $emptyCount != 5){
-       $text = $text . ", owner_id=NULL";
-    }
-    else if($_POST['towner'] == "zero"){
-      $text = $text;
-    }
-    else if($_POST['towner'] == "null" && $emptyCount == 5){
-      $text = "owner_id=NULL";
-    }
+        $ownerStatusCheck = false;
 
-    if($valueCheck){
-      $values = implode(",", $values);
-      $query  =  "UPDATE tools SET $text WHERE id IN ($values)";
+        if($_POST['mowner'] == ""){
+          $ownerStatus = "";
+        }
+        else if($_POST['mowner'] == "null"){
+          $ownerStatus = "owner=NULL";
+          $ownerStatusCheck = true;
+        }
+        else if(is_numeric($_POST['mowner'])){
+          $ownerStatus = "owner=" . $_POST['mowner'];
+          $ownerStatusCheck = true;
+        }
 
-      //echo($set);
-      //echo($values);
-      if(mysqli_query($conn, $query)){
-         header("Location: ../index.php");
+      if(!empty($text) && $ownerStatusCheck){
+          $output = $text . ", " . $ownerStatus;
       }
-      else{
-          header("Location: ../index.php");
+      else if(!empty($text) && !$ownerStatusCheck){
+          $output = $text;
       }
-      mysqli_close($conn);      
-    }   
+      else if(empty($text) && $ownerStatusCheck){
+        $output = $ownerStatus;
+      }else if(empty($text) && !$ownerStatusCheck){
+        $output = "";
+      }
 
-}  
+      echo $output;
+    /*
+      if($valueCheck){
+        $values = implode(",", $values);
+        $query  =  "UPDATE rusztowania SET $output WHERE id IN ($values)";
+  
+        //echo($set);
+        //echo($values);
+      
+        if(mysqli_query($conn, $query)){
+            //header("Location: ../index.php");
+        }
+        else{
+            //header("Location: ../index.php");
+        }
+        mysqli_close($conn);      
+      }   
+  */
+  }
+        
+  }  
+
 
 ?>
           <script>

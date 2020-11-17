@@ -26,6 +26,33 @@
         }
       }
 
+      // PRRODUCT edit
+      if($sCheckboxes[0].getAttribute('data-table-name') == "rusztowania"){
+        if($checkCount > 0){
+          for (var x = 0; x < $checkCount; x++) {
+            idsArray[x] = $sCheckboxes[x].getAttribute('data-product-id');
+          }
+        window.location.href = "./modals/editmodal-product.php?ids=" + idsArray;
+      }
+      else{
+        window.location.href = "/error.php";
+      }
+    }
+
+
+    // MACHINES edit
+    if($sCheckboxes[0].getAttribute('data-table-name') == "machines"){
+      if($checkCount > 0){
+        for (var x = 0; x < $checkCount; x++) {
+          idsArray[x] = $sCheckboxes[x].getAttribute('data-machine-id');
+        }
+      window.location.href = "./modals/editmodal-machines.php?ids=" + idsArray;
+    }
+    else{
+      window.location.href = "/error.php";
+    }
+  }
+
 
       } 
 
