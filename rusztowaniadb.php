@@ -33,7 +33,7 @@ include_once(dirname(__FILE__) . '/config/dbconnect.php');
                  echo "<td>" . $row['nazwa'] . "</td>";
                  echo "<td>" . $row['cname'] . "</td>";
                  if($row['rbroken'] == 1){
-                  echo "<td>" . "Zepsute<a href='#'><i style='color: #50959E;' class='fas fa-images broken'></i></a>" . "</td>";
+                  echo "<td>" . "Zepsute<a href='./modals/image-product.php?p='".$row['rid']."'"."><i style='color: #50959E;' class='fas fa-images broken'></i></a>" . "</td>";
                  }
                  else{
                   echo "<td>" . "-" . "</td>";

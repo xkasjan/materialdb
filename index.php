@@ -1,4 +1,12 @@
 <?php
+/*
+session_start();
+
+if (!isset($_SESSION['loggedin'])) {
+	header('Location: login.php');
+	exit;
+}
+*/
 
 //include_once('./query/mquery.php');
 include_once(dirname(__FILE__) . '/config/dbconnect.php');
