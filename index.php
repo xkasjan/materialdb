@@ -43,6 +43,26 @@ include_once(dirname(__FILE__) . '/query/mquery.php');
       padding: 0;
       box-sizing: border-box;
     }
+    .to-pdf{
+      position: fixed;
+      bottom: 2%;
+      right: 2%;
+      background: #343a40;
+      color: white;
+      font-size: 24px;
+      padding:25px;
+      border-radius: 50%;
+    }
+
+    .to-pdf:hover{
+      color: tomato;
+      transition: all 0.2s ease;
+    }
+
+    td:last-child{
+      text-align: center;
+      width:12%;
+    }
     #db-form td a i{
       margin-left: 8px;
     }
@@ -84,38 +104,48 @@ include_once(dirname(__FILE__) . '/query/mquery.php');
 
 <div id="test" class="container-fluid" style="position: absolute; top: 7vh;">
 
-  <div id="panel-menu" class="w-100 p-3" style="background-color: white; margin-top: 2%; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+  <div id="panel-menu" class="row" style="margin: 10px; padding: 10px 10px; background-color: white; margin-top: 2%; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
 
-  <div class="d-inline-flex" style="width:100%;">
+    
+
+    <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 p-1 text-center">
     <div class="btn-group" role="group" aria-label="Basic example">
     <button type="button" id="rusztowaniab" class="btn">Deskowania/Rusztowania</button>
     <button type="button" id="narzedziab" class="btn">Elektronarzędzia</button>
     <button type="button" id="maszynyb" class="btn">Maszyny</button>
-  </div>
-  
-  <div class="d-flex flex-row-reverse bd-highlight" style="width:100%;">
+    </div>
+	</div>
+	
+  <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 p-1 text-center" style="">
+    <form>
+      <input type="text" id="search" class="form-control" />
+    </form>
+    </div>
+
+    <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 p-1 text-center">
     <div class="btn-group" role="group" aria-label="Basic example">
     <a id="edytuj" class="btn" onClick="setEditAction()"><i class='fas fa-edit' style="padding-right: 6px; color: #FFDC00;"></i>Edytuj</a>
     <a id="usun" class="btn" onClick="setUpdateAction()"><i class="fas fa-trash-alt" style="margin-left: 50px; padding-right: 6px; color: #FF4136;"></i>Usuń</a>
     <button type="button" id="dodajb" class="btn" onClick="addModal()" style="margin-left: 50px;"><i class="fas fa-plus" style="padding-right: 5px; color: #2ECC40;"></i>Dodaj</button>
+    </div>
+	</div>
+	</div>
 
-  </div>
-  </div>
+			<div class="" id="db-form" style="background-color: white; margin-top: 1%; min-height: 75vh; max-height: 75vh; overflow-y: scroll; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
 
-  </div>
-
-  </div>
+			</div>
+    </div>
 
   
-  <div class="w-100 p-3" id="db-form" style="background-color: white; margin-top: 1%; min-height: 75vh; max-height: 75vh; overflow-y: scroll; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
-
-  </div>
-
-
+  <i class="fas fa-file-alt to-pdf"></i>
 
   
     <script src="./scripts/modalScripts.js"></script>
     <script src="./scripts/indexscript.js"></script>
+    <script src="./scripts/search.js"></script>
+
+    <!-- D_IMAGE MODAL -->
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

@@ -19,6 +19,8 @@ if($data['broken'] == "1"){
         $stmt->bind_param("ii", $niezepsute, $productID);
         $stmt->execute();
         $stmt->close();
+
+        
      header("Location: ../index.php");
 }
 else if($data['broken'] == "0"){
@@ -26,7 +28,7 @@ else if($data['broken'] == "0"){
         $stmt = $conn->prepare($sqlq);
         $stmt->bind_param("ii", $zepsute, $productID);
         $stmt->execute();
-        $stmt->close();
+        $stmt->close();      
      header("Location: ../index.php");
 }
 else{

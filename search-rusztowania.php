@@ -1,15 +1,20 @@
 <?php
-include_once(dirname(__FILE__) . '/config/dbconnect.php');
 
- $sql = 
- "SELECT r.id as rid, r.name as rname, r.amount as ramount , r.symbol as symbol, w.wname as nazwa, c.cname as cname, r.is_broken as rbroken
- FROM rusztowania AS r 
- LEFT OUTER JOIN warehouse AS w ON r.warehouse_id=w.id 
- LEFT OUTER JOIN contracts AS c ON r.contract_id=c.id
- ";
- 
- if ($result = $conn -> query($sql)) {
-   echo "<table class='table table-striped'>";
+include_once('config/dbconnect.php');
+
+    $text = $_POST['search'];
+
+    $sql = "SELECT r.id as rid, r.name as rname, r.amount as ramount , r.symbol as symbol, w.wname as nazwa, c.cname as cname, r.is_broken as rbroken
+    FROM rusztowania AS r 
+    LEFT OUTER JOIN warehouse AS w ON r.warehouse_id=w.id 
+    LEFT OUTER JOIN contracts AS c ON r.contract_id=c.id 
+    WHERE r.name like '%{$text}%' OR r.symbol like '%{$text}%' OR r.amount like '%{$text}%' OR w.wname like '%{$text}%' OR c.cname like '%{$text}%'";
+
+
+    if($result = $conn -> query($sql))
+    {
+
+        echo "<table class='table table-striped'>";
      echo "<thead class='table-stripped' style='background-color: #343a40; color: #FFFAFA;'>";
        echo "<tr>";
          echo "<th scope='col'></th>";
@@ -51,6 +56,7 @@ include_once(dirname(__FILE__) . '/config/dbconnect.php');
          echo "</tbody>";
        echo "</table>";
      $result -> free_result();
-   }
-   $conn -> close();
+
+    }
+
 ?>

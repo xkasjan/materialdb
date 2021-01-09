@@ -32,11 +32,18 @@ include_once('../config/dbconnect.php');
           <small style="color: #84828F;">Dane zmienią się tylko i wyłącznie gdy podamy nową zawartość w polu poniżej. Pola puste zostaną pomienięte, a poprzednia wartość zostanie zachowana.</small>
         </div>
         <div class="modal-body">
+
+
 <form method="POST" action="">
 
   <div class="form-group">
     <label for="name">Nazwa</label>
     <input type="text" class="form-control" id="name" name="pname" aria-describedby="name">
+  </div>
+
+  <div class="form-group">
+    <label for="pamount">Ilość</label>
+    <input type="number" class="form-control" id="amount" name="pamount" aria-describedby="amount" min="0" max="999999">
   </div>
 
   <div class="form-group">
@@ -111,6 +118,7 @@ if(isset($_POST['submitbutton'])){
     $text = "";
     $isArrayEmpty = false;
     $emptyCount = 0;
+    $output = "";
 
     for($z = 0; $z < 2; $z++){
         if(!empty($data[$z])){
@@ -127,6 +135,18 @@ if(isset($_POST['submitbutton'])){
     //var_dump($text);
     //echo $text;
     if ($_SERVER['REQUEST_METHOD']== "POST") {
+
+      $amount = (int)$_POST['pamount'];
+     
+      if($amount != 0 && $text != ""){
+        $text = $text . ",amount=" . $amount;
+      }
+      else if($amount != 0 && $text == ""){
+        $text = "amount=" . $amount;
+      }
+      else if($amount = 0){
+        $text = $text;
+      }
 
       if($_POST['pmagazyn'] == ""){
         $magazynStatus = "";
@@ -147,6 +167,7 @@ if(isset($_POST['submitbutton'])){
       else if(is_numeric($_POST['pcontract'])){
         $contractStatus = "contract_id=" . $_POST['pcontract'];
       }
+
     
       if(!empty($text)){
         if(!empty($_POST['pcontract']) && !empty($_POST['pmagazyn'])){
@@ -180,64 +201,9 @@ if(isset($_POST['submitbutton'])){
         }    
       }
 
-      /*
-        if($_POST['pmagazyn'] == "NULL" && $_POST['pmagazyn'] == "NULL"){
-          $warehouseID = NULL;
-          $contractID = NULL;
-          $pmc = "warehouse_id=NULL, contract_id=NULL";
-        }
-        else if($_POST['pmagazyn'] != "NULL" && $_POST['pmagazyn'] == "NULL"){
-          $warehouseID = NULL;
-          $pmc = "warehouse_id=NULL";
-        }
-        else if($_POST['pmagazyn'] == "NULL" && $_POST['pmagazyn'] != "NULL"){
-          $contractID = NULL;
-          $pmc = "contract_id=NULL";
-        }
 
-        else if(is_numeric($_POST['pmagazyn']) || is_numeric($_POST['pcontract'])){
-          $warehouseID = $_POST['pmagazyn'];
-          $contractID = $_POST['pcontract'];
-          if(!empty($warehouseID) && !empty($contractID)){
-            $pmc = "warehouse_id=" . $warehouseID . ", contract_id=" . $contractID;
-          }
-          else if(empty($warehouseID) && !empty($contractID)){
-            $pmc = "contract_id=" . $contractID;
-          }
-          else if(!empty($warehouseID) && empty($contractID)){
-            $pmc = "warehouse_id=" . $warehouseID;
-          }
-          else if(empty($warehouseID) && empty($contractID)){
-            $pmc = "";
-          }
-        }
-        else{
-          $pmc = "";
-        }
-  
-        */
-
-
-/*
-        if(!empty($_POST['pmagazyn']) && empty($_POST['pcontract'])){
-          $pmc = "warehouse_id=" . $warehouseID;
-        }
-        else if(empty($_POST['pmagazyn']) && !empty($_POST['pcontract'])){
-          $pmc = "contract_id=" . $contractID;
-        }
-        else if(!empty($_POST['pmagazyn']) && !empty($_POST['pcontract'])){
-          $pmc = "warehouse_id=" . $warehouseID . ", contract_id=" . $contractID;
-        }
-        else if(empty($_POST['pmagazyn']) && empty($_POST['pcontract'])){
-          $pmc = $pmc;
-        }
-      
-    */
-
-    //var_dump($pmc);
-    echo $output;
-  
     if($valueCheck){
+      
       $values = implode(",", $values);
       $query  =  "UPDATE rusztowania SET $output WHERE id IN ($values)";
 
@@ -250,11 +216,12 @@ if(isset($_POST['submitbutton'])){
       else{
           header("Location: ../index.php");
       }
+      
       mysqli_close($conn);      
     }   
 
 }
-      
+
 }  
 
 ?>
