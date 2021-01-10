@@ -183,6 +183,10 @@ include_once('../config/dbconnect.php');
     <input type="text" class="form-control" name="pname" id="nazwa" aria-describedby="emailHelp" placeholder="">
   </div>
 
+  <div class="form-group" style="padding-top: 10px;">
+    <label for="amount">Ilość</label>
+    <input type="number" class="form-control" name="pamount" id="amount" aria-describedby="amount" placeholder="" min="0" max="999999">
+  </div>
 
 
   <div class="form-group">

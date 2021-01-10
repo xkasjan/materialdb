@@ -20,8 +20,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
             $_POST['pkontrakt'] = null;
         }
         
-            $stmt = $conn->prepare("INSERT INTO rusztowania (name, symbol, warehouse_id, contract_id) VALUES (?, ?, ?, ?)");
-            $stmt->bind_param("ssii",$_POST['pname'] , $_POST['psymbol'], $_POST['pmagazin'], $_POST['pcontract']);
+            $stmt = $conn->prepare("INSERT INTO rusztowania (name, amount, symbol, warehouse_id, contract_id) VALUES (?, ?, ?, ?, ?)");
+            $stmt->bind_param("sisii",$_POST['pname'], $_POST['pamount'], $_POST['psymbol'], $_POST['pmagazin'], $_POST['pcontract']);
 
 
            if(!$stmt->execute()){trigger_error("there was an error....".$conn->error, E_USER_WARNING);}

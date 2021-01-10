@@ -2,11 +2,13 @@
 
 include_once(dirname(__FILE__) . '/config/dbconnect.php');
 
+$text = $_POST['search'];
+
 $sql = 
 "SELECT machines.id as mid, machines.name as mname, machines.serial_number as snr, machines.ewidence_number as enr, machines_owner.name as mowner
 FROM machines 
 LEFT OUTER JOIN machines_owner ON machines.id=machines_owner.id
-";
+WHERE machines.name like '%{$text}%' OR machines.serial_number like '%{$text}%' OR machines.ewidence_number like '%{$text}%'";
 
 if ($result = $conn -> query($sql)) {
   echo "<table class='table table-striped'>";

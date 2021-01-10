@@ -43,21 +43,52 @@ include_once(dirname(__FILE__) . '/query/mquery.php');
       padding: 0;
       box-sizing: border-box;
     }
-    .to-pdf{
+
+
+    .dropbtn {
+      background-color: #3498DB;
+      color: white;
+      padding: 16px;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
       position: fixed;
       bottom: 2%;
-      right: 2%;
-      background: #343a40;
-      color: white;
-      font-size: 24px;
-      padding:25px;
+      right: 3%;
       border-radius: 50%;
     }
 
-    .to-pdf:hover{
-      color: tomato;
-      transition: all 0.2s ease;
+
+    .dropbtn:hover, .dropbtn:focus {
+      background-color: #2980B9;
     }
+
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: fixed;
+      bottom: 6%;
+      right: 3%;
+      background-color: #f1f1f1;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1;
+    }
+
+    .dropdown-content a {
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+    }
+
+    .dropdown-content a:hover {background-color: #ddd}
+
+    .show {display:block;}
 
     td:last-child{
       text-align: center;
@@ -137,8 +168,33 @@ include_once(dirname(__FILE__) . '/query/mquery.php');
     </div>
 
   
-  <i class="fas fa-file-alt to-pdf"></i>
+    <div class="dropdown">
+      <button onclick="myFunction()" class="dropbtn"></button>
+        <div id="myDropdown" class="dropdown-content">
+          <a href="#">Podsumowanie</a>
+          <a href="#">Generuj PDF</a>
+        </div>
+    </div>
 
+    <script>
+
+    function myFunction() {
+      document.getElementById("myDropdown").classList.toggle("show");
+    }
+
+    window.onclick = function(event) {
+      if (!event.target.matches('.dropbtn')) {
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+          var openDropdown = dropdowns[i];
+          if (openDropdown.classList.contains('show')) {
+            openDropdown.classList.remove('show');
+          }
+        }
+      }
+    }
+    </script>
   
     <script src="./scripts/modalScripts.js"></script>
     <script src="./scripts/indexscript.js"></script>
