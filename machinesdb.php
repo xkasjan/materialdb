@@ -3,7 +3,7 @@
 include_once(dirname(__FILE__) . '/config/dbconnect.php');
 
 $sql = 
-"SELECT machines.id as mid, machines.name as mname, machines.serial_number as snr, machines.ewidence_number as enr, machines_owner.name as mowner
+"SELECT machines.id as mid, machines.name as mname, machines.serial_number as snr, machines.ewidence_number as enr, machines_owner.name as mowner, is_broken as mbroken
 FROM machines 
 LEFT OUTER JOIN machines_owner ON machines.id=machines_owner.id
 ";
@@ -18,6 +18,8 @@ if ($result = $conn -> query($sql)) {
         echo "<th scope='col'>Nr. seryjny</th>";
         echo "<th scope='col'>Nr. ewidencyjny</th>";
         echo "<th scope='col'>Właściciel</th>";
+        echo "<th scope='col'>Zepsute</th>";
+        echo "<th scope='col'></th>";
       echo "</tr>";
     echo "</thead>";
     echo "<tbody>";
@@ -29,6 +31,18 @@ if ($result = $conn -> query($sql)) {
                 echo "<td>" . $row['snr'] . "</td>";
                 echo "<td>" . $row['enr'] . "</td>";
                 echo "<td>" . $row['mowner'] . "</td>";
+                if($row['mbroken'] == 1){
+                  echo "<td>" . "Zepsute<a href='./modals/image-machines.php?p=".$row['mid']."'><i style='color: #50959E;' class='fas fa-images broken'></i></a>" . "</td>";
+                 }
+                 else{
+                  echo "<td>" . "-" . "</td>";
+                 }
+                 if($row['mbroken'] == 0){
+                 echo "<td><a href='./modals/broken-machines.php?broken-id=".$row['mid']."'><i style='color: #D64550;' class='fas fa-minus-square'></i></a></td>";
+                 }
+                 else{
+                 echo "<td><a href='./modals/broken-machines.php?broken-id=".$row['mid']."'><i style='color: #96C0B7;' class='fas fa-check-square'></i></a></td>";
+                 }
             echo "</tr>";
         }
         echo "</tbody>";

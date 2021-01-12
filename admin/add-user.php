@@ -2,13 +2,14 @@
 
 
 include_once('../config/dbconnect.php');
+include_once('../config/bootstrap.php');
 ?>
 
 <!doctype html>
-<html lang="pl">
+<html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="content-type" content="text/xml; charset=iso-8859-2" />
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-2" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title></title>
 
@@ -55,43 +56,16 @@ include_once('../config/dbconnect.php');
       $hash = password_hash($pin, PASSWORD_DEFAULT);
 
       if ($stmt = $conn->prepare("SELECT pwd FROM users WHERE pwd = ?")) {
-        // Bind parameters (s = string, i = int, b = blob, etc), in our case the username is a string so we use "s"
         $stmt->bind_param('s', $hash);
         $stmt->execute();
-        // Store the result so we can check if the account exists in the database.
+
         $stmt->store_result();
       }
     }while($stmt->num_rows == 1);
 
-/*
-    if ($stmt->num_rows >= 1) {
-        echo $test . " exists! \n";
-        unset($pin);
-    }else {
-      echo $test . " not exists!";
-      $isPwd=TRUE;
-    }
-    */
-      /*
-        if ($stmt = $conn->prepare("INSERT INTO users (pwd) VALUES (?)")) {
-            // Bind parameters (s = string, i = int, b = blob, etc), in our case the username is a string so we use "s"
-            $stmt->bind_param('s', $pin);
-            //$stmt->execute();
-            // Store the result so we can check if the account exists in the database.
-            $stmt->store_result();
-        
-        */
             $stmt->close();
-            /*
-            
-        }
-        break;
-        */
-    
-      
-    
-
-
+ 
+   
   ?>
 
 
@@ -112,17 +86,24 @@ include_once('../config/dbconnect.php');
   </div>
 
   <div class="form-group row">
+    <label for="login" class="col-sm-2 col-form-label">Login</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="login" name="login" placeholder="Login">
+    </div>
+  </div>
+
+  <div class="form-group row">
     <label for="pwd" class="col-sm-2 col-form-label">Hasło</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="pwd" name="pwd" disabled value='<?php echo $pin; ?>'>
+      <input type="number" class="form-control" id="pwd" name="pwd" disabled value='<?php echo $pin; ?>'>
     </div>
   </div>
 
   <div class="form-group row">
     <label for="permission" class="col-sm-2 col-form-label">Uprawnienia</label>
     <div class="col-sm-10">
-    <select class="form-control" id="permission">
-        <option value="1">Odczytywanie</option>
+    <select class="form-control" id="permission" name="permission">
+        <option value="1" selected>Odczytywanie</option>
         <option value="2">Dodawanie</option>
         <option value="3">Edytowanie</option>
         <option value="4">Usuwanie</option>
@@ -138,7 +119,7 @@ include_once('../config/dbconnect.php');
     </div>
   </div>
 </form>
-    <small>Dzięki uprawnieniom dany użytkownik może wykonać włącznie akcje, na które ma pozwolenie. Nadawanie uprawnień działają w taki sposób, że przy wyborze danej opcji, użytkownik otrzyma możliwość wykonania wybranej akcji</small>
+    <small>Dzięki uprawnieniom dany użytkownik może wykonać wyłącznie akcje, na które ma pozwolenie. Nadawanie uprawnień działają w taki sposób, że przy wyborze danej opcji, użytkownik otrzyma możliwość wykonania wybranej akcji</small>
     <small> oraz wszystkich akcji powyższych. Czyli gdy nadamy uprawnienie do "Dodawanie", konto będzie miało dostęp do dodawania danych oraz do uprawnienia "Odczytywanie".</small>
   </main>
 
@@ -148,28 +129,35 @@ include_once('../config/dbconnect.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-  if (!empty($_POST['fname']) && !empty($_POST['lname'])) {
-    //echo "dziala";
-    
-    $fn = $_POST['fname'];
-    $ln = $_POST['lname'];
+  if (!empty($_POST['fname']) && !empty($_POST['lname']) && !empty($_POST['login'])) {
 
-    $firstPart = strtolower(substr($fn, 0, 1));
-    $secondPart = strtolower($ln);
+    $fname = trim($_POST['fname']);
+    $lname = trim($_POST['lname']);
+    $log = trim($_POST['login']);
+    $per = $_POST['permission'];
 
-    //$firstPart = "jan";
-    //$secondPart = "ćwik";
+    $log = strtolower($log);
 
+    $usern = stripslashes($log);
+        $usern = mysqli_real_escape_string($conn, $usern);
+    $fn = stripslashes($fname);
+        $username = mysqli_real_escape_string($conn, $fn);
+    $ln = stripslashes($lname);
+        $username = mysqli_real_escape_string($conn, $ln);
 
-    $firstPart = strtr($firstPart, "ĄĆĘŁŃÓŚŻŹąćęłńóśżź","ACELNOSZZacelnoszz");
-    $secondPart = strtr($secondPart, "ĄĆĘŁŃÓŚŻŹąćęłńóśżź","ACELNOSZZacelnoszz");
-    
-    $nickname = $firstPart . $secondPart;
+    $stmt2 = $conn->prepare("INSERT INTO users(login, pwd, fname, lname, permission) VALUES (?, ?, ?, ?, ?)");
+    $stmt2->bind_param('ssssi', $usern, $hash, $fn, $ln, $per);
+    $stmt2->execute();
+    $stmt2->close();
 
-    echo $nickname;
+    echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>Pomyślnie dodano użytkownika<button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+    <span aria-hidden='true'>&times;</span>
+    </button></div>";
 
   } else {
-    echo "error";
+    echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>Wszystkie pola muszą zostać wypełnione<button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+    <span aria-hidden='true'>&times;</span>
+    </button></div>";
   }
 }
 

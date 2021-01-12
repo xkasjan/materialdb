@@ -139,7 +139,7 @@ include_once(dirname(__FILE__) . '/query/mquery.php');
 
     
 
-    <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 p-1 text-center">
+    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 p-1 text-center">
     <div class="btn-group" role="group" aria-label="Basic example">
     <button type="button" id="rusztowaniab" class="btn">Deskowania/Rusztowania</button>
     <button type="button" id="narzedziab" class="btn">Elektronarzędzia</button>
@@ -147,13 +147,13 @@ include_once(dirname(__FILE__) . '/query/mquery.php');
     </div>
 	</div>
 	
-  <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 p-1 text-center" style="">
-    <form>
-      <input type="text" id="search" class="form-control" />
+  <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 p-1" style="text-align: center;">
+    <form style="position: relative; left: 40%;">
+      <input type="text" id="search" class="form-control" style="width: 50%; text-align: center;"/>
     </form>
     </div>
 
-    <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 p-1 text-center">
+    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 p-1 text-center">
     <div class="btn-group" role="group" aria-label="Basic example">
     <a id="edytuj" class="btn" onClick="setEditAction()"><i class='fas fa-edit' style="padding-right: 6px; color: #FFDC00;"></i>Edytuj</a>
     <a id="usun" class="btn" onClick="setUpdateAction()"><i class="fas fa-trash-alt" style="margin-left: 50px; padding-right: 6px; color: #FF4136;"></i>Usuń</a>
